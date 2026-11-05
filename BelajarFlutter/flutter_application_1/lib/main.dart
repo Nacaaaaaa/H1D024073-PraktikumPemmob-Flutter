@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 //import 'column_widget.dart';
 //import 'row_widget.dart';
 //import 'ui/produk_form.dart';
-import 'ui/produk_page.dart';
+//import 'ui/produk_page.dart';
+import 'login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
     );
   }**/
 
-  @override
+  /**@override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Aplikasi Flutter Pertama',
@@ -61,6 +62,20 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const ProdukPage(),
+    );
+  }**/
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Menu',
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white
+        ),
+      ),
+      home: const LoginPage(),
     );
   }
 }

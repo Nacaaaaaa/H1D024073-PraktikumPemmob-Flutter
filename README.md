@@ -57,3 +57,41 @@ Berikut adalah hasil tampilan aplikasi yang dibuat menggunakan Flutter:
 | **List Produk**<br><img src="Dokumentasi/Tampilan_ListProduk.jpeg" alt="Tampilan List Produk" width="120"> | **Detail Produk**<br><img src="Dokumentasi/Tampilan_DetailProduk.jpeg" alt="Tampilan Detail Produk" width="120"> |
 
 Berdasarkan hasil tampilan di atas, aplikasi menampilkan teks sederhana menggunakan widget `Text`, menyusun widget secara vertikal dengan `Column` dan horizontal dengan `Row`, serta mengelola data produk melalui form, daftar, dan halaman detail.
+
+## Pertemuan 10: Modul 3 Pemrograman Mobile Routes, Side Menu, Login dan Local Storage Framework Flutter
+
+Berikut adalah hasil tampilan aplikasi pada pertemuan 10:
+
+| Hasil Tampilan | Hasil Tampilan |
+|---|---|
+| **Halaman Login**<br><img src="Dokumentasi/Tampilan_LoginPage.jpeg" alt="Halaman Login" width="120"> | **Dialog Login Berhasil**<br><img src="Dokumentasi/Tampilan_LoginBerhasil.jpeg" alt="Dialog login berhasil" width="120"> |
+| **Halaman Home**<br><img src="Dokumentasi/Tampilan_HomePage.jpeg" alt="Halaman Home" width="120"> | **Side Menu**<br><img src="Dokumentasi/Tampilan_Sidemenu.jpeg" alt="Side menu" width="120"> |
+| **Halaman About**<br><img src="Dokumentasi/Tampilan_AboutPage.jpeg" alt="Halaman About" width="120"> | |
+
+Pada pertemuan ini, aplikasi menggunakan beberapa fungsi dan widget untuk mengatur halaman, navigasi, serta penyimpanan data lokal. Berikut adalah fungsi utama di dalamnya:
+
+1. **`_showInput()`**
+   Membuat kolom input menggunakan widget `TextField`. Fungsi ini menerima controller dan teks petunjuk, serta dapat menyamarkan teks kata sandi dengan properti `obscureText`.
+
+2. **`_saveUsername()`**
+   Mengambil teks username dari controller lalu menyimpannya secara lokal menggunakan `SharedPreferences` dengan key `username`.
+
+3. **`_showDialog()`**
+   Menampilkan dialog konfirmasi menggunakan `AlertDialog`. Saat tombol **OK** ditekan, dialog ditutup dan aplikasi berpindah ke halaman tujuan.
+
+4. **`_loadUsername()`**
+   Membaca username yang tersimpan di `SharedPreferences`. Setelah data dibaca, `setState()` memperbarui tampilan Home agar menampilkan username tersebut.
+
+5. **`initState()`**
+   Menjalankan `_loadUsername()` saat halaman Home pertama kali dibuat, sehingga username lokal dapat dimuat ketika halaman dibuka.
+
+6. **Navigasi dengan `Navigator`**
+   `Navigator.push()` membuka halaman tujuan sebagai route baru, sedangkan `Navigator.pushReplacement()` mengganti halaman saat ini dengan halaman tujuan. Side menu menggunakan navigasi ini untuk berpindah antara halaman Home dan About.
+
+7. **Widget `Drawer` dan `ListTile`**
+   `Drawer` membuat side menu yang dapat dibuka dari halaman. Setiap `ListTile` menyediakan pilihan menu, ikon, dan aksi untuk membuka halaman yang dipilih.
+
+8. **`dispose()`**
+   Melepaskan `TextEditingController` pada halaman Login ketika halaman tidak lagi digunakan.
+
+Pada implementasi ini, login digunakan sebagai alur demonstrasi: username disimpan dan ditampilkan kembali pada halaman Home. Belum ada pemeriksaan kredensial terhadap server atau penyimpanan kata sandi.
