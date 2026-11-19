@@ -95,3 +95,30 @@ Pada pertemuan ini, aplikasi menggunakan beberapa fungsi dan widget untuk mengat
    Melepaskan `TextEditingController` pada halaman Login ketika halaman tidak lagi digunakan.
 
 Pada implementasi ini, login digunakan sebagai alur demonstrasi: username disimpan dan ditampilkan kembali pada halaman Home. Belum ada pemeriksaan kredensial terhadap server atau penyimpanan kata sandi.
+
+## Pertemuan 11: Aplikasi Toko Kita dan REST API
+
+Berikut adalah hasil tampilan aplikasi yang dibuat pada pertemuan 11:
+
+| Hasil Tampilan |
+|---|
+| **Demo Aplikasi Toko Kita**<br><img src="Dokumentasi/Demo_Petemuan11.gif" alt="Demo aplikasi Toko Kita pada pertemuan 11" width="320"> |
+
+Pada pertemuan ini, ditambahkan proyek `toko-api` sebagai REST API berbasis CodeIgniter 4 dan proyek `tokokita` sebagai aplikasi Flutter. Berikut adalah fungsi utama dari kedua proyek tersebut:
+
+1. **API produk pada `toko-api`**
+   `ProdukController` menyediakan endpoint untuk menambah dan menampilkan daftar produk, melihat detail produk berdasarkan ID, mengubah data, serta menghapus produk. Data produk terdiri dari kode, nama, dan harga, yang dikelola melalui model `MProduk`.
+
+2. **API registrasi dan login**
+   Endpoint `POST /registrasi` menyimpan data anggota dengan kata sandi yang di-*hash*. Endpoint `POST /login` memeriksa email dan kata sandi, lalu menghasilkan token autentikasi jika kredensial valid.
+
+3. **Format respons API**
+   Respons API menggunakan format JSON dengan informasi `code`, `status`, dan `data` melalui `RestfulController`.
+
+4. **Halaman produk pada `tokokita`**
+   `ProdukPage` menampilkan daftar produk dan menyediakan navigasi menuju halaman detail atau formulir produk. `ProdukDetail` menampilkan kode, nama, dan harga produk, serta menyediakan tombol **EDIT** dan **DELETE**.
+
+5. **Formulir dan model**
+   `ProdukForm` menyediakan kolom kode, nama, dan harga produk dengan validasi input. Model `Produk` menyimpan data produk dan menyediakan `fromJson()` untuk membaca data berformat JSON. Aplikasi juga memiliki halaman login dan registrasi dengan validasi input.
+
+Saat ini, `tokokita` masih menampilkan data produk contoh yang ditulis langsung di aplikasi. Tombol pada formulir produk, login, dan registrasi hanya menjalankan validasi; aplikasi belum mengirim atau mengambil data dari `toko-api`.
