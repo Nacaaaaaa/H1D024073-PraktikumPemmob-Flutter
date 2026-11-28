@@ -122,3 +122,40 @@ Pada pertemuan ini, ditambahkan proyek `toko-api` sebagai REST API berbasis Code
    `ProdukForm` menyediakan kolom kode, nama, dan harga produk dengan validasi input. Model `Produk` menyimpan data produk dan menyediakan `fromJson()` untuk membaca data berformat JSON. Aplikasi juga memiliki halaman login dan registrasi dengan validasi input.
 
 Saat ini, `tokokita` masih menampilkan data produk contoh yang ditulis langsung di aplikasi. Tombol pada formulir produk, login, dan registrasi hanya menjalankan validasi; aplikasi belum mengirim atau mengambil data dari `toko-api`.
+
+## Pertemuan 12: Integrasi REST API pada Aplikasi Toko Kita
+
+Berikut adalah hasil dokumentasi aplikasi pada pertemuan 12:
+
+| Hasil Tampilan |
+|---|
+| **Demo Aplikasi Toko Kita**<br><img src="Dokumentasi/Demo_Pertemuan12.gif" alt="Demo integrasi REST API Toko Kita pada pertemuan 12" width="320"> |
+
+Pada pertemuan ini, aplikasi `tokokita` telah terhubung dengan REST API `toko-api`. Alur registrasi, login, pengelolaan produk, penyimpanan sesi, serta logout sudah menggunakan data dan respons dari server. Berikut adalah fungsi utama yang digunakan pada pertemuan ini:
+
+1. **`ApiUrl` dan `Api`**
+   `ApiUrl` menyimpan alamat REST API serta endpoint registrasi, login, dan produk. `Api` menyediakan fungsi `post()`, `get()`, `put()`, dan `delete()` untuk mengirim permintaan HTTP. Setiap permintaan yang memerlukan autentikasi akan menyertakan token pada header `Authorization: Bearer <token>`.
+
+2. **Registrasi anggota**
+   `RegistrasiPage` memvalidasi nama, email, kata sandi, dan konfirmasi kata sandi. `RegistrasiBloc` mengirim data ke endpoint `/registrasi`. API menyimpan kata sandi dalam bentuk *hash* dan aplikasi menampilkan dialog keberhasilan atau peringatan sesuai respons server.
+
+3. **Login dan penyimpanan sesi**
+   `LoginPage` memvalidasi email dan kata sandi, lalu `LoginBloc` mengirim kredensial ke endpoint `/login`. Jika login berhasil, token dan ID pengguna disimpan secara lokal menggunakan `SharedPreferences` melalui `UserInfo`. Token tersebut kemudian digunakan oleh `Api` untuk setiap permintaan ke endpoint yang dilindungi.
+
+4. **Pemeriksaan sesi pada `main.dart`**
+   `_AuthGate` memeriksa token saat aplikasi dibuka. Jika token tersimpan, aplikasi langsung membuka halaman daftar produk. Jika token tidak ditemukan, aplikasi membuka halaman login.
+
+5. **CRUD produk**
+   `ProdukPage` mengambil daftar produk dari endpoint `GET /produk`. `ProdukBloc` menghubungkan aplikasi dengan API untuk menambah produk melalui `POST /produk`, mengubah produk melalui `PUT /produk/{id}`, dan menghapus produk melalui `DELETE /produk/{id}`.
+
+6. **Tambah dan ubah produk**
+   `ProdukForm` memvalidasi kode, nama, dan harga produk. Form yang dibuka untuk data baru akan menjalankan fungsi tambah produk, sedangkan form untuk data produk yang ada akan menjalankan fungsi ubah produk. Setelah berhasil, daftar produk dimuat ulang.
+
+7. **Detail dan hapus produk**
+   `ProdukDetail` menampilkan data produk beserta tombol **EDIT** dan **HAPUS**. Tombol hapus menampilkan konfirmasi sebelum `ProdukBloc.deleteProduk()` mengirim permintaan penghapusan ke server.
+
+8. **Penanganan loading dan error**
+   Halaman registrasi, login, dan form produk menampilkan indikator proses saat permintaan sedang dijalankan. Aplikasi juga menampilkan dialog peringatan atau pesan error jika server tidak dapat dijangkau, data tidak valid, atau operasi gagal dilakukan.
+
+9. **Logout**
+   `LogoutBloc` menghapus token dan data pengguna yang tersimpan melalui `UserInfo.logout()`. Setelah logout berhasil, aplikasi menghapus seluruh riwayat navigasi dan kembali ke halaman login.
